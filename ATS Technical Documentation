@@ -1,0 +1,74 @@
+//This is a technical documentation example based on the code provided here: https://github.com/Giorgiemar97/Data-Analysis/blob/main/ATS%20information%20gathered
+
+Candidate Application Tracking System: Technical Documentation
+
+Overview
+This SQL database system manages job candidate applications and their recruitment status. The system tracks candidate information, application details, and current hiring pipeline status through a relational database structure.
+
+Database Schema
+
+Tables
+
+Candidates Table
+Stores core information about job applicants.
+Columns:
+    • candidate_id (INT, PRIMARY KEY, AUTO_INCREMENT): Unique identifier for each candidate.
+    • first_name (VARCHAR(50), NOT NULL): Candidate's first name 
+    • last_name (VARCHAR(50), NOT NULL): Candidate's last name 
+    • email (VARCHAR(100), NOT NULL, UNIQUE): Contact email address; enforces uniqueness to prevent duplicate applications 
+    • phone (VARCHAR(20)): Contact phone number (optional) 
+    • resume_url (VARCHAR(255)): File path or URL to candidate's resume (optional) 
+    • application_date (DATE, NOT NULL): Date when application was submitted 
+    • position_applied (VARCHAR(100), NOT NULL): Job position title 
+Constraints:
+    • Primary key on candidate_id ensures each candidate has a unique identifier 
+    • Unique constraint on email prevents duplicate candidate records 
+
+Application_Status Table
+Tracks the current hiring pipeline status for each candidate.
+Columns:
+    • status_id (INT, PRIMARY KEY, AUTO_INCREMENT): Unique identifier for each status record 
+    • candidate_id (INT, NOT NULL, FOREIGN KEY): Links to Candidates table 
+    • current_status (VARCHAR(50), NOT NULL): Current stage in hiring pipeline (e.g., "Applied", "Screening", "Interview") 
+    • hiring_manager (VARCHAR(100)): Name of assigned hiring manager (optional) 
+    • last_updated (DATE, NOT NULL): Date of most recent status change 
+    • notes (TEXT): Additional context or comments about the application (optional) 
+Constraints:
+    • Foreign key relationship with Candidates(candidate_id) with ON DELETE CASCADE ensures that deleting a candidate automatically removes their associated status records 
+
+Relationships
+The database uses a one-to-one relationship between Candidates and Application_Status tables, linked via candidate_id. The CASCADE delete rule maintains referential integrity by automatically removing status records when a candidate is deleted.
+Sample Data
+The script includes test data for three candidates:
+    • Ruby Mar: Data Analyst applicant at Interview stage 
+    • John Smith: Software Engineer applicant at Screening stage 
+    • Sarah Johnson: Data Analyst applicant at Applied stage 
+
+Query Functions
+Query 1: Complete Application Overview
+Purpose: Retrieves a comprehensive view of all candidates with their current application status.
+Returns: Candidate details combined with their latest status information, ordered by most recent applications first.
+Use Case: Dashboard view for recruiters to see all active applications at a glance.
+Query 2: Pipeline Analytics by Position and Status
+Purpose: Provides aggregate statistics showing how many candidates are in each status for each position.
+Returns: Count of candidates grouped by position and status combination.
+Use Case: Pipeline reporting and identifying bottlenecks in the hiring process (e.g., "We have 15 candidates stuck in Screening for Software Engineer").
+Query 3: Filtered Candidate Search
+Purpose: Retrieves detailed information for candidates matching specific criteria.
+Current Filter: Data Analyst position, Interview status, assigned to Lisa Chen.
+Returns: Full candidate contact information and status details for matching records, ordered by most recently updated.
+Use Case: Hiring manager workflow - allows managers to quickly find candidates they're actively interviewing for specific positions.
+Usage Notes
+Data Integrity:
+    • The UNIQUE constraint on email prevents accidental duplicate candidate entries 
+    • CASCADE delete ensures orphaned status records don't remain when candidates are removed 
+Performance Considerations:
+    • Consider adding an index on position_applied if filtering by position becomes frequent 
+    • Consider adding an index on current_status for faster status-based queries 
+    • The application_date DESC ordering in Query 1 may benefit from an index on larger datasets 
+Status Values: The system currently uses freeform text for current_status. Consider implementing a reference table with standardized status values (e.g., "Applied", "Screening", "Interview", "Offer", "Hired", "Rejected") to ensure consistency.
+Extension Opportunities
+    • Add an Interview_Schedule table to track specific interview dates and times 
+    • Implement status history tracking to maintain audit trail of all status changes 
+    • Add a Positions table to normalize job postings and track open requisitions 
+    • Include candidate skills or qualifications table for better matching capabilities 
