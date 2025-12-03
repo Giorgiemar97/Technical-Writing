@@ -1,0 +1,44 @@
+//This is a technical documentation example based on the code provided here: https://github.com/Giorgiemar97/Data-Analysis/blob/main/Book%20list%20-%20SQL%20practice
+
+Overview
+
+This database system tracks personal reading habits and book ratings. It consists of two main tables that work together to maintain a comprehensive record of books read and reading progress.
+
+Database Structure
+
+Books Table
+
+The books table serves as the primary repository for book information. Each entry contains:
+
+    book_id: A unique numerical identifier that serves as the primary key
+    title: The book's title (up to 100 characters)
+    author: The author's name (up to 100 characters)
+    genre: The literary category or genre classification (up to 50 characters)
+    publication_year: The year the book was published
+    rating: A numerical rating assigned to the book
+
+Reading Log Table
+
+The reading_log table tracks individual reading sessions and connects to the books table through a foreign key relationship. Each log entry includes:
+
+    log_id: A unique numerical identifier for each reading session
+    book_id: References the corresponding book in the books table
+    start_date: The date reading began
+    finish_date: The date reading was completed (null if still in progress)
+    notes: Personal observations or commentary about the reading experience
+
+Sample Data
+
+The database includes five diverse books spanning multiple genres: Fantasy, Middle Grade Fiction, Contemporary Fiction, Poetry, and Dystopian Fiction. Publication years range from 2016 to 2025, with ratings between 3 and 5.
+
+The reading log captures five separate reading sessions from January through August 2024, including one book currently in progress.
+
+Query Functions
+
+Unfinished Books Query
+
+This query identifies books currently being read by selecting all entries where the finish_date is null. It returns the book title, author, and start date, providing a quick overview of reading commitments still in progress.
+
+Genre Analysis Query
+
+This aggregation query calculates the average rating for each genre and counts the number of books in each category. Results are ordered by average rating in descending order, helping identify which genres receive the highest ratings in the collection.
