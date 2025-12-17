@@ -1,0 +1,50 @@
+//This is a technical Documentation for the Christmas Gift Tracker that was created here: https://github.com/Giorgiemar97/Data-Analysis/blob/main/SQL%20Christmas%20inventory
+
+Christmas Gifts Database Documentation
+Overview
+
+This database helps you keep track of your Christmas gift shopping and giving. It's designed to make sure you don't forget who you've bought gifts for, what you bought them, and whether you've actually given those gifts yet.
+Database Structure
+The Christmas_gifts Table
+
+This table stores all your gift information with the following fields:
+
+GiftID - A unique identifier that automatically increments for each gift you add. This is the primary key, so each gift gets its own ID number.
+
+For_Who - The name of the person you're buying the gift for. This field is required because, well, you need to know who the gift is for!
+
+What_is_it - A description of the gift itself. Also required, because you need to track what you're actually giving.
+
+Has_been_bought - Tracks whether you've purchased the gift yet. This can only be 'Yes' or 'No', and defaults to 'No' when you first add a gift to your list.
+
+When_bought - The date you actually bought the gift. This field is optional and will be empty (NULL) until you make the purchase.
+
+Has_been_given - Keeps track of whether you've given the gift to the person. Like Has_been_bought, this can only be 'Yes' or 'No', and defaults to 'No'.
+Sample Data
+
+The database comes with a few example entries to show you how it works:
+
+    A calendar for your husband (bought on October 22, 2025, but not yet given)
+    A makeup bag for your sister (still needs to be purchased)
+    A video game for your brother (bought on November 5, 2025, and already given)
+    A cozy blanket for your mom (bought on October 31, 2025, waiting to be given)
+
+Useful Queries
+Finding Gifts You've Bought But Haven't Given Yet
+
+This query helps you see which gifts are sitting in your closet waiting to be wrapped and given. It looks for all gifts where Has_been_bought is 'Yes' but Has_been_given is still 'No'. Based on the sample data, this would show you the calendar for your husband and the blanket for your mom.
+Finding Gifts You Still Need to Buy
+
+This query shows you what's still on your shopping list by finding all gifts where Has_been_bought is 'No'. In our example, this would remind you that you still need to pick up that makeup bag for your sister.
+How to Use This Database
+
+The typical workflow would be:
+
+    Add all your gift ideas at the start of the season with just the For_Who and What_is_it fields filled in
+    As you shop, update Has_been_bought to 'Yes' and add the When_bought date
+    When you give someone their gift, update Has_been_given to 'Yes'
+    Use the queries to check what you still need to buy or what you have waiting to give
+
+This way, you'll never show up on Christmas morning realizing you forgot to buy something or accidentally give someone their gift twice!
+
+
