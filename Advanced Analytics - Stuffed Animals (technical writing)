@@ -1,0 +1,32 @@
+//This is a technical documentation example based on the code provided here: https://github.com/Giorgiemar97/Data-Analysis/blob/main/Advanced%20Analytics%20-%20Stuffed%20animals
+
+Plush Toy Sales Database Documentation
+Overview
+This database system manages inventory and sales tracking for a plush toy retail operation. It maintains product information, pricing data, and transaction records to enable comprehensive sales analysis and profitability reporting.
+Database Structure
+Products Table
+The products table stores the core inventory information for all plush toys in the catalog. Each product record contains:
+
+product_id: A unique numerical identifier serving as the primary key
+product_name: The descriptive name of the plush toy (up to 100 characters)
+category: The product classification grouping (up to 50 characters)
+cost_price: The wholesale or acquisition cost (stored with two decimal precision)
+retail_price: The standard selling price before any discounts (stored with two decimal precision)
+
+Sales Table
+The sales table records individual transaction data and links to the products table through a foreign key relationship. Each sales record includes:
+
+sale_id: A unique numerical identifier for each transaction
+sale_date: The date the sale occurred
+product_id: References the specific product sold from the products table
+quantity: The number of units sold in the transaction
+discount_percent: The percentage discount applied to the sale (stored with two decimal precision)
+
+Sample Data
+The database contains ten distinct plush toy products organized into five categories: Bears, Fantasy, Wildlife, Ocean, and Farm. Products range from budget items like the Mini Unicorn at $14.99 retail to premium items like the Giant Teddy Bear at $79.99. Cost prices vary from $4.50 to $25.00, creating different profit margin opportunities across the product line.
+Twenty sales transactions are recorded spanning January through April 2024. Discounts range from zero to 20 percent, with quantities per transaction varying from one to five units.
+Query Functions
+Total Sales and Profit by Category
+This aggregation query provides comprehensive category performance metrics. It calculates the total number of transactions, units sold, revenue generated, and profit earned for each product category. The query accounts for discounts when calculating revenue and profit figures. Additionally, it computes the average sale price per transaction after discounts are applied. Results are ordered by total revenue in descending order, highlighting the most financially successful categories.
+Best Selling Products
+This query ranks individual products by sales volume while providing detailed profitability metrics. For each product, it displays the product name, category, and retail price alongside calculated performance indicators including total units sold, total revenue (after discounts), total profit, and profit margin percentage. The profit margin is calculated as the difference between retail and cost price divided by retail price, expressed as a percentage. Products are ranked by total units sold in descending order, identifying the most popular items in the catalog.
